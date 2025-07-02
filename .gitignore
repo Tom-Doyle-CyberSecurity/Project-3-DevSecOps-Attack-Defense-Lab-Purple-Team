@@ -1,0 +1,38 @@
+# General cache/temp/artifacts
+*.tfvars
+*.bak
+*.swp
+*.swo
+*.tmp 
+*.log
+*.lock
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Infrastructure 
+*.tfstate
+*.vars
+*.key
+*.pub
+*.pem
+
+# Project runtime/env
+.env*
+.envrc
+.docker*
+docker-compose.yml
+
+# Scripts
+*.sh
+*.bak
+*.tmp
+*.log
+*.lock
