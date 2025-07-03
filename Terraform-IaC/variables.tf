@@ -8,7 +8,7 @@ variable "ami_id" {
     type = string
 }
 
-# Name of the key pair for SSH access (must exist in AWS / preferred cloud provider)
+# Name of the key pair for SSH access (must exist in AWS / preferred cloud provider) - shared values
 variable "key_name" {
     description = "Name of existing AWS EC2 key pair"
     type = string
@@ -36,5 +36,19 @@ variable "vpc_id"{
 # Subnet ID
 variable "subnet_id" {
     description = "Subnet ID of the EC2 instance"
+    type = string
+}
+
+###############################
+# Windows Server (Blue Team) VM
+###############################
+
+variable "windows_ami_id" {
+    description = "AMI ID of Windows Server 2022"
+    type = string
+}
+
+variable "windows_instance_type" {
+    description = "EC2 instance type for Windows VM"
     type = string
 }

@@ -9,15 +9,15 @@
 
 # Specify the AWS provider and region
 provider "aws" {
-    region = "ap-southeasst-2" # Change accordingly
+    region = "ap-southeast-2" # Change accordingly
 }
 
-# Fetch the default VPC in the region
+# Use default VPC for simplicity
 data "aws_vpc" "default" {
     default = true
 }
 
-# Define a security group to allow SSH (port 22) and HTTP (port 3000)
+# Security group: SSH (port 22) and HTTP (port 3000)
 resource "aws_security_group" "allow_ssh_http" {
     name = "P3-devsecops-sg"
     description = "Allow SSH from IP and HTTP access to Juice Shop"
@@ -25,14 +25,16 @@ resource "aws_security_group" "allow_ssh_http" {
 
     # Allow SSH only from my IP
     ingress {
+        description = "SSH from my IP"
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = [var.my_ip]
+        cidr_blocks = [var.pub_ip]
     }
 
     # Allow public access to Juice Shop on port 3000
     ingress {
+        description = "Juice Shop (HTTP)"
         from_port = 3000
         to_port = 3000
         protocol = "tcp"
@@ -48,16 +50,26 @@ resource "aws_security_group" "allow_ssh_http" {
     }
 }
 
-# Launch an EC2 instance using Amazon Linux 2 and attach the security group
-resource "aws_instance" "docker_host" {
-    ami = var.ami_id
+##############################
+# Amazon Linux 2 - Docker Host
+##############################
+module "docker_host" {
+    source = "Instances/Amazon_Linux2_Instance"
+    ami_id = var.ami_id
     instance_type = var.instance_type
     key_name = var.key_name
-    vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
+    subnet_id = var.subnet_id
+    securiyy_group_id = aws_security_group.allow_ssh_http.id
+}
 
-    # This script installs Docker and runs docker-compose on the EC2 instance
-    user_data = file("${path.module}/../setup.sh")
-    tags = {
-        Name = "DevSecOps-Docker-Host"
-    }
+#################################
+# Windows Server 2022 - Blue Team
+#################################
+module "windows_server" {
+    source = "Instances/Windows_2022_Instance"
+    ami_id = var.windows_ami_id
+    instance_type = var.windows_instance_type
+    key_name = var.key_name
+    subnet_id = var.subnet_id
+    security_group_id = aws_security_group.allow_ssh_http.id
 }
