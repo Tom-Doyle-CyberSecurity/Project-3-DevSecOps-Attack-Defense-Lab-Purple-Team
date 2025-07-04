@@ -1,10 +1,28 @@
-##############################################
-# Input-Variables for DevSecOps Infrastructure
-##############################################
+#####################################################
+# Shared Input-Variables for DevSecOps Infrastructure
+#####################################################
 
-# AMI ID
-variable "ami_id" {
-    description = "AMI ID of the EC2 instance"
+# Amazon 2 AMI ID
+variable "A2_ami_id" {
+    description = "AMI ID for Amazon Linux 2"
+    type = string
+}
+
+# Amazon Linux 2 Instance Type
+variable "A2_instance_type" {
+    description = "Instance Type for Amazon Linux 2"
+    type = string
+}
+
+# Windows 2022 AMI ID
+variable "windows_ami_id" {
+    description = "AMI ID for Windows 2022 Server"
+    type = string
+}
+
+# Windows Instance Type
+variable "windows_instance_type" {
+    description = "Instance Type for Windows 2022 Server"
     type = string
 }
 
@@ -12,19 +30,6 @@ variable "ami_id" {
 variable "key_name" {
     description = "Name of existing AWS EC2 key pair"
     type = string
-}
-
-# Public IP address in the CIDR notation to restrict SSH access
-variable "pub_ip" {
-    description = "Public IP address with /32"
-    type = string
-}
-
-# Size/type of EC2 instance to provision
-variable "instance_type" {
-    description = "AWS EC2 instance_type"
-    type = string
-    default = "t3.micro"
 }
 
 # VPC ID
@@ -39,16 +44,8 @@ variable "subnet_id" {
     type = string
 }
 
-###############################
-# Windows Server (Blue Team) VM
-###############################
-
-variable "windows_ami_id" {
-    description = "AMI ID of Windows Server 2022"
-    type = string
-}
-
-variable "windows_instance_type" {
-    description = "EC2 instance type for Windows VM"
+# My Pub IP
+variable "my_pub_ip" {
+    description = "My public IP for SSH access"
     type = string
 }
