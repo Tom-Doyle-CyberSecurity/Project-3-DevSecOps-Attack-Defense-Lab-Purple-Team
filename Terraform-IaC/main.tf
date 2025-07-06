@@ -88,7 +88,7 @@ module "windows_server" {
 #####################################
 output "A2_pub_ip" {
     description = "Public IP of the Amazon Linux 2 Docker Host"
-    value = module.docker_host.A2_public_ip
+    value = module.docker_host.A2_pub_ip
 }
 
 output "windows_public_ip" {
