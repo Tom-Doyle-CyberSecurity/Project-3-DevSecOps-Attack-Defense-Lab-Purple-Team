@@ -1,5 +1,5 @@
 # General cache/temp/artifacts
-*.tfvars
+terraform.tfvars
 *.bak
 *.swp
 *.swo
