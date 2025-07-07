@@ -1,5 +1,5 @@
 resource "aws_instance" "windows_server" {
-    ami = data.aws_ami.windows_server_2022.id
+    ami = var.windows_ami_id
     instance_type = var.windows_instance_type
     key_name = var.key_name
     subnet_id = var.subnet_id
