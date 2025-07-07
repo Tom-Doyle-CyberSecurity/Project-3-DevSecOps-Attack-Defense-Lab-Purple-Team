@@ -1,5 +1,8 @@
 # General cache/temp/artifacts
 terraform.tfvars
+.terraform/
+.terraform.lock.hcl
+
 *.bak
 *.swp
 *.swo
@@ -18,7 +21,9 @@ terraform.tfvars
 Thumbs.db
 
 # Infrastructure 
-*.tfstate
+terraform.tfstate
+terraform.tfstate.backup
+terraform_*.zip
 *.vars
 *.key
 *.pub
